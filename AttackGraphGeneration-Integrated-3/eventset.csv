@@ -1,0 +1,9 @@
+ORDER,SRCHOST,DSTHOST,ACCESSLEVEL,IP ADDRESS,PORT,DESCRIPTION
+1,A,A,0,192.170.5.6,1521/TCP,remote authentication bypassed to access user database
+2,B,B,0,192.170.5.2,1521/TCP,remote user executes arbitrary code via vectors
+3,C,C,1,192.170.5.11,80/TCP,chunk-encoded HTTP request
+4,C,C,2,192.170.5.11,1234/TCP,XPC message sent to make a new OpenVPN connection
+5,A,D,0,192.170.27.24,53/TCP,remote execution of arbitrary shell commands via a crafted patch file
+6,A,D,0,192.170.27.24,1521/TCP,remote attack on availability via vectors
+7,C,E,2,193.170.27.23,80/TCP,"remote attack on confidentiality, integrity, and availability via vectors"
+8,E,F,2,193.170.27.22,1521/TCP,remote execution of commands via crafted parameter to CGI script

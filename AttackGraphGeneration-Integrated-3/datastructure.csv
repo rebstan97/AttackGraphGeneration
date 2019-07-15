@@ -1,0 +1,9 @@
+CVE,DESCRIPTION
+CVE-2012-3137,remote authentication bypassed to access user database
+CVE-2013-1534,remote user executes arbitrary code via vectors
+CVE-2002-0392,chunk-encoded HTTP request
+CVE-2018-9105,XPC message sent to make a new OpenVPN connection
+CVE-2015-1416,remote execution of arbitrary shell commands via a crafted patch file
+CVE-2011-0806,remote attack on availability via vectors
+CVE-2016-5555,"remote attack on confidentiality, integrity, and availability via vectors"
+CVE-2019-13398,remote execution of commands via crafted parameter to CGI script
