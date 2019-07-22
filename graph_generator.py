@@ -1,6 +1,5 @@
 # Generates an attack graph of state nodes and vulnerability nodes 
 
-import matplotlib.pyplot as plt
 import networkx as nx
 from input_parser import Parser
 from reachable import Reachable
@@ -24,11 +23,14 @@ class GraphGenerator(object):
             return None
         return self.vulnDict[(host, port)]
 
-    def get_access_granted(self, reachableNode, gainedAccessLevel, currAccessLevel):
-        if currAccessLevel < gainedAccessLevel:
-            return gainedAccessLevel
-        
-        return currAccessLevel
+    def get_access_granted(self, vulnerabilityNode, currAccessLevel):
+        if vulnerabilityNode.accessVector == 'Network':
+            return vulnerabilityNode.accessLevel
+        elif vulnerabilityNode.accessVector == 'Local':
+            if currAccessLevel < vulnerabilityNode.accessLevel:
+                return vulnerabilityNode.accessLevel
+            else:
+                return currAccessLevel
 
     def generate_graph(self):
         DG = nx.DiGraph()
@@ -41,8 +43,9 @@ class GraphGenerator(object):
                 if not vulnerabilitySet:
                     continue
                 for vulnerabilityNode in vulnerabilitySet:
+                    vulnerabilityNode.entry = True
                     if vulnerabilityNode.requiredPrivilege == 0:
-                        startNode.accessLevel = vulnerabilityNode.get_gained_access()
+                        startNode.accessLevel = vulnerabilityNode.accessLevel
                         DG.add_edge(vulnerabilityNode, startNode)
                         print("Added edge from {} to {}".format(vulnerabilityNode.to_string(), startNode.to_string()))
 
@@ -72,15 +75,13 @@ class GraphGenerator(object):
                     # 2) reachable to port associated with that vulnerability
                     for vulnerabilityNode in vulnerablitySet:
                         # print("Reachable node {} has vulnerability {}".format(reachable, vulnerabilityNode.to_string()))
-                        if currAccessLevel >= vulnerabilityNode.requiredPrivilege: 
+                        if (currAccessLevel >= vulnerabilityNode.requiredPrivilege) and not (vulnerabilityNode.accessVector == 'Local' and not host == reachable[0]): 
                             if not DG.has_edge(vulnerabilityNode, stateNode) and not DG.has_edge(stateNode, vulnerabilityNode):
                                 # print("No edge from {} to {}".format(vulnerabilityNode.to_string(), stateNode.to_string()))
                                 DG.add_edge(stateNode, vulnerabilityNode)
                                 print("Added edge from {} to {}".format(stateNode.to_string(), vulnerabilityNode.to_string()))
                             
-                            # compare gained access level from this vulnerability with preceeding access level
-                            # and add vulnerable node as the vulnerability node's child node
-                            newAccessLevel = self.get_access_granted(reachable, vulnerabilityNode.accessLevel, currAccessLevel)
+                            newAccessLevel = self.get_access_granted(vulnerabilityNode, currAccessLevel)
                             vulnerableNode = StateNode(reachable[0], newAccessLevel)
                             if not DG.has_node(vulnerableNode):
                                 newStateNodes.add(vulnerableNode)

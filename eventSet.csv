@@ -1,0 +1,7 @@
+ORDER,SRCHOST,DSTHOST,IP_ADDRESS,PORT,DESCRIPTION
+1,U,C,192.170.5.11,80,chunk-encoded HTTP request
+2,C,A,192.170.5.6,1521,remote authentication bypassed to access user database
+3,A,D,192.170.27.24,53,XPC message sent to make a new OpenVPN connection
+4,D,D,192.170.27.24,1521,remote execution of arbitrary shell commands via a crafted patch file
+5,D,F,192.170.27.22,1521,remote execution of commands via crafted parameter to CGI script
+6,F,U,192.170.27.22,1521,data exfiltration
