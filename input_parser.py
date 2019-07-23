@@ -18,12 +18,18 @@ class Parser(object):
                 print("Please enter a positive integer")
             except ValueError:
                 print("Please enter a positive integer")
-
-        print("Enter start node(s) name(s) >>>")
-        names = input()
-        if not names:
+        
+        while True:
+            print("Enter start node(s) name(s), separated by comma >>>")
+            names = input()
+            if names:
+                startNodesNames = names.split(',')
+                if len(startNodesNames) == numStartNodes:
+                    break
+                else:
+                    print("Number of start node(s) must be as specified")
+                    continue
             print("Please enter a non-empty start node name")
-        startNodesNames = names.split(',')
         
         startNodeSet = set()
         for i in range(0, numStartNodes):
@@ -36,8 +42,37 @@ class Parser(object):
             exit()
 
         return startNodeSet
+
+    def parseNotableEvent(self):
+        while True:
+            print("Enter notable event >>>")
+            event = input()
+            if event:
+                eventComponents = event.split(",")
+                if len(eventComponents) == 6:
+                    break
+                else:
+                    print("Please enter a valid notable event")
+                    continue
+            print("Please enter a non-empty notable event")
+
+        while True:
+            try: 
+                accessLevel = int(input("Enter access level of attacker >>>"))
+                if accessLevel >= 0 and accessLevel <= 2:
+                    break
+                print("Please enter 0 (no access), 1 (user) or 2 (root)")
+            except ValueError:
+                print("Please enter 0 (no access), 1 (user) or 2 (root)")
+        
+        order = int(eventComponents[0])
+        src = eventComponents[1]
+        port = int(eventComponents[4])
+        description = eventComponents[5]
+
+        return order, src, port, description, accessLevel
  
-    # create 2 dictionaries:
+    # creates 2 dictionaries:
     # 1) mapping of (vulnName, vulnPort) to VulnerabilityNode
     # 2) mapping of vulnName to vulnPort
     def parseVulnerabilities(self):       
@@ -53,12 +88,14 @@ class Parser(object):
                     vulnName = row[4]
                     vulnPort = int(row[7].split("/")[0])
                     vulnNode = VulnerabilityNode(vulnName, vulnPort)
+
                     if (hostname, vulnPort) in vulnDict:
                         vulnDict[(hostname, vulnPort)].add(vulnDict)
                     else:
                         vulnSet = set()
                         vulnSet.add(VulnerabilityNode(vulnName, vulnPort))
                         vulnDict[(hostname, vulnPort)] = vulnSet
+
                     if hostname in portDict:
                         portDict[hostname].add(vulnPort)
                     else:
@@ -71,4 +108,61 @@ class Parser(object):
         except IOError:
             print("File {} does not exist".format("vulnerabilities.csv"))
             exit() 
+
+    # creates a dictionary mapping of CVE to event description 
+    # for simplicity, assumes each CVE is mapped to a single event
+    def parseEventMapping(self):
+        cveToEventDict = {}
+        try:
+            with open("cveToEvent.csv") as csv_file:
+                next(csv_file, None) # Skip first row (header)
+                csv_reader = csv.reader(csv_file, delimiter=',')
+                for row in csv_reader:
+                    cve = row[0]
+                    eventDescription = row[1]
+                    # if cve in cveToEventDict:
+                    #     cveToEventDict[cve].add(eventDescription)
+                    # else:
+                    # eventSet = set()
+                    # eventSet.add(eventDescription)                    
+                    # cveToEventDict[cve] = eventSet
+                    cveToEventDict[cve] = eventDescription 
+            return cveToEventDict
+
+        except IOError:
+            print("File {} does not exist".format("cveToEvent.csv"))
+            exit() 
+
+    def parseCrownJewels(self):
+       while True:
+           try:
+               numCrownJewels = int(input("Enter number of crown jewels in attack graph: >>>"))
+               if numCrownJewels > 0:
+                   break
+               print("Please enter a positive integer")
+           except ValueError:
+               print("Please enter a positive integer")
+
+       print("Enter crown jewel(s) name(s) >>>")
+       names = input()
+       if not names:
+           print("Please enter a non-empty crown jewel name")
+       crownJewelNames = names.split(',')
+      
+       crownJewelSet = set()
+       for i in range(0, numCrownJewels):
+           for j in range(3):
+               crownJewel = StateNode(crownJewelNames[i], j)
+               crownJewelSet.add(crownJewel)
+
+       # Reject if crown jewels do not exist
+       # not implemented yet
+       # currently, assume that crown jewels entered by user must exist
+
+       # Reject if crown jewel set is empty
+       if not crownJewelSet:
+           print("Attack graph cannot have no crown jewels")
+           exit()
+
+       return crownJewelSet
 
