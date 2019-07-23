@@ -2,20 +2,19 @@
 
 import networkx as nx
 from input_parser import Parser
-from reachable import Reachable
 from state_node import StateNode
 
 class GraphGenerator(object):
 
-    def __init__(self, startNodeSet, vulnDict, portDict):
+    def __init__(self, startNodeSet, adjList, vulnDict, portDict):
         self.startNodeSet = startNodeSet
+        self.adjList = adjList
         self.vulnDict = vulnDict
         self.portDict = portDict
     
     # needs to link with network topology 
     def get_reachable(self, hostname):
-        getReachable = Reachable()
-        reachableSet = getReachable.get_reachable(hostname)
+        reachableSet = self.adjList[hostname]
         return reachableSet
 
     def get_vulnerabilities(self, host, port):

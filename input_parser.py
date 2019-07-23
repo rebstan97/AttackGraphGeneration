@@ -1,11 +1,7 @@
-# Parse the start nodes
-# - Returns a list of start nodes 
-# Parse the name of the node
-# - Returns a list of vulnerabilities of the specific node 
-
-import csv
 from state_node import StateNode
 from vulnerability_node import VulnerabilityNode
+import csv
+import os
 
 class Parser(object):
 
@@ -49,7 +45,7 @@ class Parser(object):
             event = input()
             if event:
                 eventComponents = event.split(",")
-                if len(eventComponents) == 6:
+                if len(eventComponents) == 8:
                     break
                 else:
                     print("Please enter a valid notable event")
@@ -65,19 +61,63 @@ class Parser(object):
             except ValueError:
                 print("Please enter 0 (no access), 1 (user) or 2 (root)")
         
-        order = int(eventComponents[0])
+        timestamp = int(eventComponents[0])
         src = eventComponents[1]
-        port = int(eventComponents[4])
-        description = eventComponents[5]
+        dst = eventComponents[2]
+        port = int(eventComponents[6])
+        description = eventComponents[7]
 
-        return order, src, port, description, accessLevel
- 
-    # creates 2 dictionaries:
-    # 1) mapping of (vulnName, vulnPort) to VulnerabilityNode
-    # 2) mapping of vulnName to vulnPort
-    def parseVulnerabilities(self):       
+        return timestamp, src, dst, port, description, accessLevel
+
+    def parseReachability(self):
+        file_input = input("Enter CSV file (including extension) containing reachability graph: ")
+        filename = file_input.split("/")[-1]
+        directory = file_input.replace(filename, '')
+
+        if directory:
+            curr_dir = os.getcwd()
+            os.chdir(directory)
+
         try:
-            with open("vulnerabilities.csv") as csv_file:
+            with open(filename) as csv_file:
+                os.chdir(curr_dir)
+                csv_reader = csv.reader(csv_file, delimiter=',')
+                reachability_dict = {}
+                for row in csv_reader:
+                    hostname = row[0]
+                    reachable = row[1:]
+                
+                    reachable_set = set()
+                    for i in reachable:
+                        neighbour = i.split(",")[0]
+                        if not neighbour:
+                            continue
+                        port = int(i.split(",")[1])
+                        reachable_set.add((neighbour, port))
+
+                    reachability_dict[hostname] = reachable_set
+
+                return reachability_dict
+
+        except IOError:
+            print("File {} does not exist".format(filename))
+            exit()
+ 
+    # Creates 2 dictionaries:
+    # 1) Mapping of (vulnName, vulnPort) to VulnerabilityNode
+    # 2) Mapping of vulnName to vulnPort
+    def parseVulnerabilities(self):
+        file_input = input("Enter CSV file (including extension) containing vulnerabilities: ")
+        filename = file_input.split("/")[-1]
+        directory = file_input.replace(filename, '')
+
+        if directory:
+            curr_dir = os.getcwd()
+            os.chdir(directory)
+
+        try:
+            with open(filename) as csv_file:
+                os.chdir(curr_dir)
                 next(csv_file, None) # Skip first row (header)
                 csv_reader = csv.reader(csv_file, delimiter=',')
 
@@ -106,15 +146,25 @@ class Parser(object):
             return vulnDict, portDict
 
         except IOError:
-            print("File {} does not exist".format("vulnerabilities.csv"))
+            print("File {} does not exist".format(filename))
             exit() 
 
-    # creates a dictionary mapping of CVE to event description 
-    # for simplicity, assumes each CVE is mapped to a single event
+    # Creates a dictionary mapping of CVE to event description 
+    # For simplicity, assumes each CVE is mapped to a single event
+    # Use "cveToEvent.csv" as a sample
     def parseEventMapping(self):
         cveToEventDict = {}
+        file_input = input("Enter CSV file (including extension) containing mapping of CVE to event: ")
+        filename = file_input.split("/")[-1]
+        directory = file_input.replace(filename, '')
+
+        if directory:
+            curr_dir = os.getcwd()
+            os.chdir(directory)
+
         try:
-            with open("cveToEvent.csv") as csv_file:
+            with open(filename) as csv_file:
+                os.chdir(curr_dir)
                 next(csv_file, None) # Skip first row (header)
                 csv_reader = csv.reader(csv_file, delimiter=',')
                 for row in csv_reader:
@@ -130,7 +180,7 @@ class Parser(object):
             return cveToEventDict
 
         except IOError:
-            print("File {} does not exist".format("cveToEvent.csv"))
+            print("File {} does not exist".format(filename))
             exit() 
 
     def parseCrownJewels(self):
