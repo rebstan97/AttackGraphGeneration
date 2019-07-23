@@ -1,20 +1,20 @@
-from event_set import EventSet
+from event_finder import EventFinder
 from graph_generator import GraphGenerator
 from graph_traverser import GraphTraverser
 from input_parser import Parser
-# import graph_storage as gs
 
 parser = Parser()
 startNodeSet = parser.parseStartNodes()
+adjList = parser.parseReachability()
 vulnDict, portDict = parser.parseVulnerabilities()
 eventMapping = parser.parseEventMapping()
-eventSet = EventSet()
+eventSet = EventFinder()
 
 # Generate attack graph
-graphGenerator = GraphGenerator(startNodeSet, vulnDict, portDict)
+graphGenerator = GraphGenerator(startNodeSet, adjList, vulnDict, portDict)
 DG = graphGenerator.generate_graph()
 
-order, src, port, description, accessLevel = parser.parseNotableEvent()
+timestamp, src, dst, port, description, accessLevel = parser.parseNotableEvent()
 
-graphTraverser = GraphTraverser(DG, eventSet, eventMapping)
-eventSequence = graphTraverser.start_traversal(order, src, port, description, accessLevel)
+graphTraverser = GraphTraverser(DG, eventSet, eventMapping, portDict.keys())
+eventSequence = graphTraverser.start_traversal(timestamp, src, dst, port, description, accessLevel)
