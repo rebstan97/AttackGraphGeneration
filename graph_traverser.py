@@ -14,7 +14,8 @@ class GraphTraverser(object):
         if v.type == 'vuln' and v.entry and src not in self.networkNodes:
             # reverseList.reverse()
             # print("Printing at node {}".format(v.to_string()))
-            self.print_path(reverseList[::-1])
+            print('')
+            return self.print_path(reverseList[::-1])
 
         for i in self.graph.predecessors(v):
             # print("Predecessor: {}".format(i.to_string()))
@@ -22,25 +23,26 @@ class GraphTraverser(object):
                 description = self.eventMapping[i.vulnerabilityName]
                 event = self.eventSet.containsVulnEvent(description, dst, i.vulnerabilityPort, timestamp)
                 if event:
-                    # print("Adding event: {}".format(event['DESCRIPTION']))
                     event_string = event['TIMESTAMP'] + ', ' + event['SRCHOST'] + ', ' + event['DSTHOST'] + ', ' + description
+                    # print("Adding event: {}".format(event_string))
                     reverseList.append(event_string)
                     self.dfs(i, reverseList, event['TIMESTAMP'], event['DSTHOST'], event['DSTPORT'], event['SRCHOST'])
                     reverseList.pop()
                     # print("Returned from state node")
 
             elif i.type == 'state':
-                # Lateral movement to this state alr represented in vulnerability event
                 if src == i.hostname:
                     self.dfs(i, reverseList, timestamp, src, port)
                     # print("Returned from vuln node")
-                event = self.eventSet.containsMovementEvent(i.hostname, dst, port, timestamp)
-                if event:
-                    event_string = event['TIMESTAMP'] + ', ' + event['SRCHOST'] + ', ' + event['DSTHOST'] + ', ' + event['DESCRIPTION']
-                    reverseList.append(event_string)
-                    self.dfs(i, reverseList, event['TIMESTAMP'], event['SRCHOST'], event['DSTPORT'])
-                    reverseList.pop()
-                    # print("Returned from vuln node")
+                # Adversary made use of trust relationship for lateral movement
+                elif src == dst:
+                    event = self.eventSet.containsMovementEvent(i.hostname, dst, port, timestamp)
+                    if event:
+                        event_string = event['TIMESTAMP'] + ', ' + event['SRCHOST'] + ', ' + event['DSTHOST'] + ', ' + event['DESCRIPTION']
+                        reverseList.append(event_string)
+                        self.dfs(i, reverseList, event['TIMESTAMP'], event['SRCHOST'], event['DSTPORT'])
+                        reverseList.pop()
+                        # print("Returned from vuln node")
 
     def start_traversal(self, timestamp, src, dst, port, description, accessLevel):
         reverseList = []
