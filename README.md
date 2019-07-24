@@ -2,7 +2,7 @@
 
 A common problem faced by cyber incident responders is the enormous amount of logs detected by sensors. In order to reduce the time spent on analysing them and eliminate false positives, our program helps to:
 * Combine dynamic log information with static network information to automatically retrace the steps that the attacker took to conduct the intrusion
-* List the possible paths that the attacker might take and the vulnerabilities in the network that the attacker could exploit, to reach the crown jewels, so that you can remove these paths 
+* List the possible paths that the attacker might take and the vulnerabilities in the network that the attacker could exploit, to reach the crown jewels, so that defenders can remove these paths 
 
 ## Getting Started
 
