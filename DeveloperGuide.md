@@ -34,6 +34,7 @@ The program generates all possible simple paths from the state note of the notab
 * At the point of the notable event, the attacker's access level is known
 * An IP address belonging to a host in the network can be accurately resolved to its hostname
 * The event set is finite and can be searched through in a feasible amount of time 
+* Each event search returns exactly one event
 
 ## Future Work 
 
@@ -43,11 +44,14 @@ The current solution reads in CSV files containing information about connectivit
 #### Detection of vulnerability exploitation from events
 Currently, the user provides a rigid one-to-one mapping of CVE to event description. However, realistically, the act of exploiting a vulnerability can manifest itself as several events and the event descriptions might not be so predictable. Improvements can be made to use regex expressions to better identify CVE exploitations from events.
 
+#### Dealing with multiple event results
+One assumption made is that each successful event search returns exactly one result. However, in reality, there may be many events matching the given query. A more refined algorithm will be required to iterate through all event results, or select the most likely event to be included.
+
 #### A GUI that can display the attack paths on a network topology
 A GUI can be implemented to improve readability of attack paths, especially on a scaled-up version of a network.
 
-#### More discrete User Access Levels
-None and Root are already unique. However, User is not always homogeneous. As there are different users, they would have specific access to different programs which blocks others. As such, we can define different Users in a Node as 1.x e.g. 1.1, 1.2, 1.3 (recall that the prefix of 1 is taken by our program to be the general form of User). Therefore, this will paint a more discrete attack path.
+#### More discrete user access levels
+`None` and `Root` are already rather unique. However, `user` is not always homogeneous. As there are different users, they would have specific access to different programs which blocks other users. As such, we can define different types of `user` access in a Node as 1.x e.g. 1.1, 1.2, 1.3 (recall that the prefix of 1 is taken by our program to be the general form of `user`). This would paint a more specific attack path.
 
 #### Prediction capabilities
 Currently, to pre-emptively prevent the attacker from reaching the crown jewels, all possible paths leading to them are listed by the program. To aid the defender in planning a more focused course of action, the program can predict which paths are more likely to be taken by the attacker. This can be performed in many ways, such as:
