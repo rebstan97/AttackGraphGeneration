@@ -45,6 +45,9 @@ Currently, the user provides a rigid one-to-one mapping of CVE to event descript
 #### A GUI that can display the attack paths on a network topology
 A GUI can be implemented to improve readability of attack paths, especially on a scaled-up version of a network.
 
+#### More discrete User Access Levels
+None and Root are already unique. However, User is not always homogeneous. As there are different users, they would have specific access to different programs which blocks others. As such, we can define different Users in a Node as 1.x e.g. 1.1, 1.2, 1.3 (recall that the prefix of 1 is taken by our program to be the general form of User). Therefore, this will paint a more discrete attack path.
+
 #### Prediction capabilities
 Currently, to pre-emptively prevent the attacker from reaching the crown jewels, all possible paths leading to them are listed by the program. To aid the defender in planning a more focused course of action, the program can predict which paths are more likely to be taken by the attacker. This can be performed in many ways, such as:
 * tagging events to a phase in the cyber kill chain
