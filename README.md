@@ -12,19 +12,19 @@ These instructions will get you a copy of the project up and running on your loc
 
 #### Python 3.x
 
-* Visit `https://www.python.org/downloads/` to download the latest suitable Python 3.x version according to your OS (we used Python 3.7 on Windows)
+* Visit https://www.python.org/downloads/ to download the latest suitable Python 3.x version according to your OS (we used Python 3.7 on Windows)
 
 #### Splunk and Splunk SDK for Python
 
-* Visit `https://www.splunk.com/en_us/download.html` and download the relevant edition of Splunk (we used the Splunk Enterprise 60-day trial)
+* Visit https://www.splunk.com/en_us/download.html and download the relevant edition of Splunk (we used the Splunk Enterprise 60-day trial)
 * Set up the Splunk service to be running on your local machine
 * Load your events into Splunk (we loaded `examples/eventSet.csv` as a local file to be monitored)
-* Visit `http://dev.splunk.com/view/python-sdk/SP-CAAAEDG` to download the latest Splunk SDK for Python (we used version 1.6.6)
+* Visit http://dev.splunk.com/view/python-sdk/SP-CAAAEDG to download the latest Splunk SDK for Python (we used version 1.6.6)
 * Unpack and copy the downloaded package to the project folder, renaming the folder to `splunk`. Then install the splunk SDK using `python setup.py install`
 
 #### MongoDB
 
-* Visit `https://www.mongodb.com/download-center/community` to download the latest suitable Community server according to your OS (we used version 4.0.10 on Windows) 
+* Visit https://www.mongodb.com/download-center/community to download the latest suitable Community server according to your OS (we used version 4.0.10 on Windows) 
 * Set up MongoDB to run on `localhost:27017`
 
 ### Installation
@@ -77,7 +77,7 @@ This section assumes the demo event set `eventSet.csv` has been loaded into Splu
 
 #### Preparation
 
-The script `web_scraping.py` extracts information about the CVEs in `CVEs.csv` from `https://www.cvedetails.com` and `https://nvd.nist.gov/` and loads it into MongoDB for later querying. This script should be run whenever a new CVE is discovered within your network (i.e. the CVE configuration file must be updated to contain this new CVE).
+The script `web_scraping.py` extracts information about the CVEs in `CVEs.csv` from https://www.cvedetails.com and https://nvd.nist.gov/ and loads it into MongoDB for later querying. This script should be run whenever a new CVE is discovered within your network (i.e. the CVE configuration file must be updated to contain this new CVE).
 
 ```
 > python scripts/web_scraping.py
