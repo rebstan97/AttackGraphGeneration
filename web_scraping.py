@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 from pymongo import MongoClient
 from urllib.request import Request, urlopen
 import csv
-import pandas as pd
+import os
 
 client = MongoClient('localhost', 27017)
 db = client.project
@@ -15,14 +15,21 @@ vulns = db.vulnerabilities
 mapping1 = { 'High': 2, 'Low': 1, 'None': 0 }
 mapping2 = { 'Admin': 2, 'User': 1, 'None': 0 }
 
-filename = input("Enter filename (with extension) to read CVEs from: ")
+file_input = input("Enter CSV file (including extension) to read CVEs from: ")
+filename = file_input.split("/")[-1]
+directory = file_input.replace(filename, '')
+
+if directory:
+    curr_dir = os.getcwd()
+    os.chdir(directory)
+    print(os.getcwd())
 
 try:
     with open(filename) as csv_file:
+        # os.chdir(curr_dir)
         csv_reader = csv.reader(csv_file)
         for row in csv_reader:
             CVE = row[0]
-
             url = "https://www.cvedetails.com/cve/" + CVE
             req = Request(url, headers={ 'User-Agent': 'Mozilla/5.0' })
             html_doc = urlopen(req).read()
