@@ -125,8 +125,8 @@ class Parser(object):
                 portDict = {}
                 for row in csv_reader:
                     hostname = row[0]
-                    vulnName = row[4]
-                    vulnPort = int(row[7].split("/")[0])
+                    vulnName = row[1]
+                    vulnPort = int(row[2].split("/")[0])
                     vulnNode = VulnerabilityNode(vulnName, vulnPort)
 
                     if (hostname, vulnPort) in vulnDict:
