@@ -95,8 +95,7 @@ Next, input a notable event with the assumed access level of the attacker.
 ```
 > python main.py
 Enter number of start nodes in attack graph: >>>3
-Enter start node(s) name(s), separated by comma >>>
-A,B,C
+Enter start node(s) name(s), separated by comma >>>A,B,C
 Enter CSV file (including extension) containing reachability graph: examples/reachability.csv
 Enter CSV file (including extension) containing vulnerabilities: examples/vulnerabilities.csv
 Enter CSV file (including extension) containing mapping of CVE to event: examples/cveToEvent.csv
