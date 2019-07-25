@@ -1,7 +1,0 @@
-TIMESTAMP,SRCHOST,DSTHOST,SRCIP,DSTIP,SRCPORT,DSTPORT,DESCRIPTION
-1563861738,U,C,102.68.0.2,192.170.5.11,1234,80,chunk-encoded HTTP request received
-1563861790,C,A,192.170.5.11,192.170.5.6,5555,1521,user_save function called with an explicit category
-1563861805,A,D,192.170.5.6,192.170.27.24,4342,53,ssh login
-1563861823,D,D,192.170.27.24,192.170.27.24,2341,1521,local user executes with root privilege
-1563861880,D,F,192.170.27.24,192.170.27.22,7777,1521,XPC message sent to make a new OpenVPN connection
-1563861901,F,U,192.170.27.22,102.68.0.2,7654,1521,suspected data exfiltration
