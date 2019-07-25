@@ -33,6 +33,7 @@ The program generates all possible simple paths from the state note of the notab
 * Firewalls cannot be compromised and their rules will always be followed
 * At the point of the notable event, the attacker's access level is known
 * An IP address belonging to a host in the network can be accurately resolved to its hostname
+* The event set is finite and can be searched through in a feasible amount of time 
 
 ## Future Work 
 
