@@ -1,8 +1,0 @@
-CVE,DESCRIPTION
-CVE-2016-3169,remote authentication bypassed to access user database
-CVE-2013-1534,remote user executes arbitrary code via vectors
-CVE-2002-0392,chunk-encoded HTTP request
-CVE-2016-1393,XPC message sent to make a new OpenVPN connection
-CVE-2018-1386,remote execution of arbitrary shell commands via a crafted patch file
-CVE-2016-1309,remote attack on availability via vectors
-CVE-2018-9105,remote execution of commands via crafted parameter to CGI script
