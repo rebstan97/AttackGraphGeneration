@@ -53,7 +53,7 @@ class Parser(object):
 
         while True:
             try: 
-                accessLevel = int(input("Enter access level of attacker >>>"))
+                accessLevel = int(input("Enter access level of attacker at the notable event>>>"))
                 if accessLevel >= 0 and accessLevel <= 2:
                     break
                 print("Please enter 0 (no access), 1 (user) or 2 (root)")
