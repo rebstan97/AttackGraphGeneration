@@ -17,6 +17,7 @@ class Parser(object):
         
         while True:
             names = input("Enter start node(s) name(s), separated by comma >>>")
+
             if names:
                 startNodesNames = names.split(',')
                 if len(startNodesNames) == numStartNodes:
@@ -53,7 +54,7 @@ class Parser(object):
 
         while True:
             try: 
-                accessLevel = int(input("Enter access level of attacker at the notable event>>>"))
+                accessLevel = int(input("Enter access level of attacker >>>"))
                 if accessLevel >= 0 and accessLevel <= 2:
                     break
                 print("Please enter 0 (no access), 1 (user) or 2 (root)")
@@ -178,6 +179,17 @@ class Parser(object):
                     cveToEventDict[cve] = eventDescription 
             return cveToEventDict
 
+        except IOError:
+            print("File {} does not exist".format(filename))
+            exit() 
+
+    def parseSplunkConfig(self):
+        try:
+            f = open("splunkConfig.txt", "r")
+            username = f.readline().strip('\n')
+            password = f.readline().strip('\n')
+            return username, password
+        
         except IOError:
             print("File {} does not exist".format(filename))
             exit() 
