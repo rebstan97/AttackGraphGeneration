@@ -16,8 +16,7 @@ class Parser(object):
                 print("Please enter a positive integer")
         
         while True:
-            print("Enter start node(s) name(s), separated by comma >>>")
-            names = input()
+            names = input("Enter start node(s) name(s), separated by comma >>>")
             if names:
                 startNodesNames = names.split(',')
                 if len(startNodesNames) == numStartNodes:
