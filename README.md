@@ -105,6 +105,16 @@ Enter notable event >>>
 Enter access level of attacker >>>2
 ```
 
+#### Generate Possible Paths to Crown Jewels
+
+Lastly, input the crown jewels of the network for the program to generate all possible paths to the crown jewels from the node where the notable event occurred.
+
+```
+Enter number of crown jewels in attack graph: >>>2
+Enter crown jewel(s) name(s) >>>
+E,F
+```
+
 ##### Output
 
 2 possible event sequences / attack paths are generated: 
@@ -122,6 +132,100 @@ Entry: 1563861738, U, C, chunk-encoded HTTP request received
  -> 1563861880, D, F, XPC message sent to make a new OpenVPN connection
  -> Notable event: 1563861901, F, U, suspected data exfiltration
  ````
+ 
+All possible paths to the crown jewels from the node where the notable event occurred are generated:
+```
+POSSIBLE PATHS TO REACH CROWN JEWEL E:
+Possible path 1:
+1) notable event at (A, 1)
+2) exploit CVE-2002-0392 on port 80 on node (C, 1)
+3) exploit CVE-2016-1301 on port 80 on node (E, 1)
+Possible path 2:
+1) notable event at (A, 1)
+2) exploit CVE-2016-1393 on port 53 on node (D, 1)
+3) exploit CVE-2018-1386 on port 1521 on node (D, 2)
+4) exploit CVE-2016-1301 on port 80 on node (E, 1)
+Possible path 3:
+1) notable event at (A, 1)
+2) exploit CVE-2016-1393 on port 53 on node (D, 1)
+3) exploit CVE-2018-1386 on port 1521 on node (D, 2)
+4) exploit CVE-2018-9105 on port 1521 on node (F, 2)
+5) exploit CVE-2016-1301 on port 80 on node (E, 1)
+Possible path 4:
+1) notable event at (A, 1)
+2) exploit CVE-2016-1393 on port 53 on node (D, 1)
+3) exploit CVE-2016-1301 on port 80 on node (E, 1)
+Possible path 5:
+1) notable event at (A, 1)
+2) exploit CVE-2016-1393 on port 53 on node (D, 1)
+3) exploit CVE-2018-9105 on port 1521 on node (F, 2)
+4) exploit CVE-2016-1301 on port 80 on node (E, 1)
+Possible path 6:
+1) notable event at (A, 1)
+2) exploit CVE-2013-1534 on port 1521 on node (B, 0)
+3) exploit CVE-2002-0392 on port 80 on node (C, 1)
+4) exploit CVE-2016-1301 on port 80 on node (E, 1)
+POSSIBLE PATHS TO REACH CROWN JEWEL F:
+Possible path 1:
+1) notable event at (A, 1)
+2) exploit CVE-2002-0392 on port 80 on node (C, 1)
+3) exploit CVE-2016-1301 on port 80 on node (E, 1)
+4) exploit CVE-2018-9105 on port 1521 on node (F, 2)
+Possible path 2:
+1) notable event at (A, 1)
+2) exploit CVE-2002-0392 on port 80 on node (C, 1)
+3) exploit CVE-2016-1301 on port 80 on node (E, 1)
+4) exploit CVE-2016-1393 on port 53 on node (D, 1)
+5) exploit CVE-2018-1386 on port 1521 on node (D, 2)
+6) exploit CVE-2018-9105 on port 1521 on node (F, 2)
+Possible path 3:
+1) notable event at (A, 1)
+2) exploit CVE-2002-0392 on port 80 on node (C, 1)
+3) exploit CVE-2016-1301 on port 80 on node (E, 1)
+4) exploit CVE-2016-1393 on port 53 on node (D, 1)
+5) exploit CVE-2018-9105 on port 1521 on node (F, 2)
+Possible path 4:
+1) notable event at (A, 1)
+2) exploit CVE-2016-1393 on port 53 on node (D, 1)
+3) exploit CVE-2018-1386 on port 1521 on node (D, 2)
+4) exploit CVE-2016-1301 on port 80 on node (E, 1)
+5) exploit CVE-2018-9105 on port 1521 on node (F, 2)
+Possible path 5:
+1) notable event at (A, 1)
+2) exploit CVE-2016-1393 on port 53 on node (D, 1)
+3) exploit CVE-2018-1386 on port 1521 on node (D, 2)
+4) exploit CVE-2018-9105 on port 1521 on node (F, 2)
+Possible path 6:
+1) notable event at (A, 1)
+2) exploit CVE-2016-1393 on port 53 on node (D, 1)
+3) exploit CVE-2016-1301 on port 80 on node (E, 1)
+4) exploit CVE-2018-9105 on port 1521 on node (F, 2)
+Possible path 7:
+1) notable event at (A, 1)
+2) exploit CVE-2016-1393 on port 53 on node (D, 1)
+3) exploit CVE-2018-9105 on port 1521 on node (F, 2)
+Possible path 8:
+1) notable event at (A, 1)
+2) exploit CVE-2013-1534 on port 1521 on node (B, 0)
+3) exploit CVE-2002-0392 on port 80 on node (C, 1)
+4) exploit CVE-2016-1301 on port 80 on node (E, 1)
+5) exploit CVE-2018-9105 on port 1521 on node (F, 2)
+Possible path 9:
+1) notable event at (A, 1)
+2) exploit CVE-2013-1534 on port 1521 on node (B, 0)
+3) exploit CVE-2002-0392 on port 80 on node (C, 1)
+4) exploit CVE-2016-1301 on port 80 on node (E, 1)
+5) exploit CVE-2016-1393 on port 53 on node (D, 1)
+6) exploit CVE-2018-1386 on port 1521 on node (D, 2)
+7) exploit CVE-2018-9105 on port 1521 on node (F, 2)
+Possible path 10:
+1) notable event at (A, 1)
+2) exploit CVE-2013-1534 on port 1521 on node (B, 0)
+3) exploit CVE-2002-0392 on port 80 on node (C, 1)
+4) exploit CVE-2016-1301 on port 80 on node (E, 1)
+5) exploit CVE-2016-1393 on port 53 on node (D, 1)
+6) exploit CVE-2018-9105 on port 1521 on node (F, 2)
+```
 
 Now, you are ready to go ahead and input your own configuration files!
 
