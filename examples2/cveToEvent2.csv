@@ -1,0 +1,6 @@
+CVE,DESCRIPTION
+CVE-2016-1393,SQL query submitted via urls
+CVE-2016-3169,user_save function called with an explicit category
+CVE-2018-1973,suspected privilege escalation through IBM API
+CVE-2018-9105,XPC message sent to make a new OpenVPN connection
+CVE-2019-12491,suspected privilege escalation from OnApp
