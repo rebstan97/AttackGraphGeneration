@@ -47,6 +47,9 @@ Currently, the user provides a rigid one-to-one mapping of CVE to event descript
 #### Dealing with multiple event results
 One assumption made is that each successful event search returns exactly one result. However, in reality, there may be many events matching the given query. A more refined algorithm will be required to iterate through all event results, or select the most likely event to be included.
 
+#### Accounting for trust relationships
+Access from one host to another may be permitted by trust relationships or means of authentication eg remote logins. An attacker is able to gain access to a connected machine without exploiting a vulnerability on that machine.
+
 #### A GUI that can display the attack paths on a network topology
 A GUI can be implemented to improve readability of attack paths, especially on a scaled-up version of a network.
 
