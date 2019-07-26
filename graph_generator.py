@@ -46,7 +46,7 @@ class GraphGenerator(object):
                     if vulnerabilityNode.requiredPrivilege == 0:
                         startNode.accessLevel = vulnerabilityNode.accessLevel
                         DG.add_edge(vulnerabilityNode, startNode)
-                        print("Added edge from {} to {}".format(vulnerabilityNode.to_string(), startNode.to_string()))
+                        # print("Added edge from {} to {}".format(vulnerabilityNode.to_string(), startNode.to_string()))
 
         stateNodeSet = self.startNodeSet
         newStateNodes = set()
@@ -55,7 +55,7 @@ class GraphGenerator(object):
             # iterate through each state node's reachable node set
             for index, stateNode in enumerate(stateNodeSet):
 
-                print("State node: {}".format(stateNode.to_string()))
+                # print("State node: {}".format(stateNode.to_string()))
 
                 host = stateNode.hostname
                 currAccessLevel = stateNode.accessLevel
@@ -78,16 +78,16 @@ class GraphGenerator(object):
                             if not DG.has_edge(vulnerabilityNode, stateNode) and not DG.has_edge(stateNode, vulnerabilityNode):
                                 # print("No edge from {} to {}".format(vulnerabilityNode.to_string(), stateNode.to_string()))
                                 DG.add_edge(stateNode, vulnerabilityNode)
-                                print("Added edge from {} to {}".format(stateNode.to_string(), vulnerabilityNode.to_string()))
+                                # print("Added edge from {} to {}".format(stateNode.to_string(), vulnerabilityNode.to_string()))
                             
                             newAccessLevel = self.get_access_granted(vulnerabilityNode, currAccessLevel)
                             vulnerableNode = StateNode(reachable[0], newAccessLevel)
                             if not DG.has_node(vulnerableNode):
                                 newStateNodes.add(vulnerableNode)
-                                print("Adding {} to newStateNodes".format(vulnerableNode.to_string()))
+                                # print("Adding {} to newStateNodes".format(vulnerableNode.to_string()))
                             if not DG.has_edge(vulnerabilityNode, vulnerableNode):
                                 DG.add_edge(vulnerabilityNode, vulnerableNode)
-                                print("Added edge from {} to {}".format(vulnerabilityNode.to_string(), vulnerableNode.to_string()))
+                                # print("Added edge from {} to {}".format(vulnerabilityNode.to_string(), vulnerableNode.to_string()))
 
                 if index == len(stateNodeSet) - 1:
                     stateNodeSet = newStateNodes
