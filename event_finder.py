@@ -8,7 +8,7 @@ class EventFinder(object):
     def containsVulnEvent(self, description, host, port, timestamp):
         search_str = 'python search.py "search '
         query = search_str + description + " SRCHOST=*" + " DSTHOST=" + host + " DSTPORT=" + str(port) + " TIMESTAMP<" + str(timestamp)
-        query += '" --username="Imzai" --password="password" --output_mode=json'
+        query += '" --username="<username>" --password="<password>" --output_mode=json'
         # print(query)
         os.chdir("splunk/examples")
         status, result = subprocess.getstatusoutput(query)
