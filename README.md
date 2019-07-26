@@ -43,7 +43,7 @@ pip install LXML
 
 ### Configuration Files
 
-These  contain data about your network and its vulnerabilities. Sample configuration files can be found in the `examples` folder.
+These  contain data about your network and its vulnerabilities. Sample configuration files can be found in the `examples` and `examples2` folder.
 
 #### Network Connectivity
 
