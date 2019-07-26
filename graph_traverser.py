@@ -31,18 +31,8 @@ class GraphTraverser(object):
                     # print("Returned from state node")
 
             elif i.type == 'state':
-                if src == i.hostname:
-                    self.dfs(i, reverseList, timestamp, src, port)
-                    # print("Returned from vuln node")
-                # Adversary made use of trust relationship for lateral movement
-                elif src == dst:
-                    event = self.eventSet.containsMovementEvent(i.hostname, dst, port, timestamp)
-                    if event:
-                        event_string = event['TIMESTAMP'] + ', ' + event['SRCHOST'] + ', ' + event['DSTHOST'] + ', ' + event['DESCRIPTION']
-                        reverseList.append(event_string)
-                        self.dfs(i, reverseList, event['TIMESTAMP'], event['SRCHOST'], event['DSTPORT'])
-                        reverseList.pop()
-                        # print("Returned from vuln node")
+                self.dfs(i, reverseList, timestamp, src, port)
+                # print("Returned from vuln node")
 
     def start_traversal(self, timestamp, src, dst, port, description, accessLevel):
         reverseList = []
