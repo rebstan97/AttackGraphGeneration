@@ -19,7 +19,7 @@ The program takes on a breadth-first approach to generate an attack graph, begin
 ### Event Sequence Reconstruction
 To chain up relevant events together, the program goes through the event logs (hosted within Splunk) in reverse chronological order from the notable event while doing a backwards depth-first traversal on the attack graph starting from where a notable event has occurred concurrently. At each node during the traversal, the event logs dictate the path the algorithm takes:
 * Traverse from a State node to a preceding Vulnerability node if an exploitation event for that vulnerability has occurred
-* Traverse from a Vulnerability node to a preceding State node if the vulnerability event occurred when the attacker was initially at the preceding state node's host (by checking the source of the event), or if there is an event involving this State node (source) and the vulnerable node (destination)
+* Traverse from a Vulnerability node to a preceding State node if the vulnerability event occurred when the attacker was initially at the preceding state node's host (by checking the source of the event)
 
 An event sequence / attack path is complete when an event originating from an external IP address to an entry host has been identified. 
 
@@ -51,7 +51,7 @@ One assumption made is that each successful event search returns exactly one res
 A GUI can be implemented to improve readability of attack paths, especially on a scaled-up version of a network.
 
 #### More discrete user access levels
-`None` and `Root` are already rather unique. However, `user` is not always homogeneous. As there are different users, they would have specific access to different programs which blocks other users. As such, we can define different types of `user` access in a Node as 1.x e.g. 1.1, 1.2, 1.3 (recall that the prefix of 1 is taken by our program to be the general form of `user`). This would paint a more specific attack path.
+`none` and `root` are already rather unique. However, `user` is not always homogeneous. As there are different users, they would have specific access to different programs which blocks other users. As such, we can define different types of `user` access in a Node as 1.x e.g. 1.1, 1.2, 1.3 (recall that the prefix of 1 is taken by our program to be the general form of `user`). This would paint a more specific attack path.
 
 #### Prediction capabilities
 Currently, to pre-emptively prevent the attacker from reaching the crown jewels, all possible paths leading to them are listed by the program. To aid the defender in planning a more focused course of action, the program can predict which paths are more likely to be taken by the attacker. This can be performed in many ways, such as:
