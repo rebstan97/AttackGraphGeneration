@@ -38,7 +38,10 @@ class GraphTraverser(object):
         reverseList = []
         reverseList.append('Notable event: ' + str(timestamp) + ', ' + src + ', '+ dst + ', ' + description)
         notableEventNode = self.find_node(src, accessLevel)
-        eventSequence = self.dfs(notableEventNode, reverseList, timestamp, src, port)
+        if notableEventNode:
+            eventSequence = self.dfs(notableEventNode, reverseList, timestamp, src, port)
+        else:
+            print("The attacker cannot have access level {} at host {}".format(accessLevel, src))
     
     def find_node(self, dst, accessLevel):
         for i in self.graph.nodes:
