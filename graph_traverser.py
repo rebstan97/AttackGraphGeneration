@@ -21,14 +21,15 @@ class GraphTraverser(object):
             # print("Predecessor: {}".format(i.to_string()))
             if i.type == 'vuln':
                 description = self.eventMapping[i.vulnerabilityName]
-                event = self.eventSet.containsVulnEvent(description, dst, i.vulnerabilityPort, timestamp)
-                if event:
-                    event_string = event['TIMESTAMP'] + ', ' + event['SRCHOST'] + ', ' + event['DSTHOST'] + ', ' + description
-                    # print("Adding event: {}".format(event_string))
-                    reverseList.append(event_string)
-                    self.dfs(i, reverseList, event['TIMESTAMP'], event['DSTHOST'], event['DSTPORT'], event['SRCHOST'])
-                    reverseList.pop()
-                    # print("Returned from state node")
+                eventList = self.eventSet.containsVulnEvent(description, dst, i.vulnerabilityPort, timestamp)
+                if eventList:
+                    for event in eventList:
+                        event_string = event['TIMESTAMP'] + ', ' + event['SRCHOST'] + ', ' + event['DSTHOST'] + ', ' + description
+                        # print("Adding event: {}".format(event_string))
+                        reverseList.append(event_string)
+                        self.dfs(i, reverseList, event['TIMESTAMP'], event['DSTHOST'], event['DSTPORT'], event['SRCHOST'])
+                        reverseList.pop()
+                        # print("Returned from state node")
 
             elif i.type == 'state':
                 self.dfs(i, reverseList, timestamp, src, port)
