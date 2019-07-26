@@ -1,6 +1,6 @@
 TIMESTAMP,SRCHOST,DSTHOST,SRCIP,DSTIP,SRCPORT,DSTPORT,DESCRIPTION
 1563861790,U,A,102.68.0.2,192.170.5.6,5555,1521,user_save function called with an explicit category
-1563861805,A,B,192.170.5.6,192.170.27.24,1521,53,SQL query submitted via urls
+1563861805,A,B,192.170.5.6,192.170.27.24,1521,53,SQL query submitted via url
 1563861820,A,C,192.170.5.6,192.170.27.22,1521,1521,XPC message sent to make a new OpenVPN connection
 1563861830,B,C,192.170.27.24,192.170.27.22,53,1521,XPC message sent to make a new OpenVPN connection
 1563861835,C,A,192.170.27.22,192.170.5.6,1521,80,suspected privilege escalation through IBM API
