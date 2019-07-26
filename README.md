@@ -71,6 +71,10 @@ Create a CSV file that matches each CVE ID to an event description that the CVE 
 * The first column contains the CVE ID in the form CVE-year-number.
 * The second column contains the description of the event that happens when the corresponding CVE has been exploited.
 
+#### Splunk Credentials
+
+Replace `splunkConfig.txt` with your own `username` and `password` for Splunk.
+
 ### Running the Demo Example
 
 This section assumes the demo event set `eventSet.csv` has been loaded into Splunk.
